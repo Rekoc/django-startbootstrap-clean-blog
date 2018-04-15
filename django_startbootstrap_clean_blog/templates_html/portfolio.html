@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }} posts{% endblock %}
+
+{% block header_title %}Start Bootstrap - Django{% endblock %}
+
+{% block background-image %}
+    background-image: url('../static/web/images/post-bg.jpg')
+{% endblock %}
+
+{% block webpage_title %}
+    {{ category.name }}
+{% endblock %}
+
+{% block webpage_subtitle %}
+    A Blog Theme by Start Bootstrap - mixed with Django !
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview">
+                {% for category in categories %}
+                    <a href="{% url 'Category' category_slug=category.slug %}">
+                        <h2 class="post-title">
+                            {{ category.name }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                            {{ category.description }}
+                        </h3>
+                    </a>
+                {% empty %}
+                    <p>No post online in this category</p>
+                {% endfor %}
+            </div>
+            <hr>
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

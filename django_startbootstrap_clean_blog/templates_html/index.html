@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Clean Blog - Django Start Bootstrap Theme{% endblock %}
+
+{% block header_title %}Start Bootstrap - Django{% endblock %}
+
+{% block background-image %}
+    background-image: url('../static/web/images/home-bg.jpg')
+{% endblock %}
+
+{% block webpage_title %}
+    Index
+{% endblock %}
+
+{% block webpage_subtitle %}
+    A Blog Theme by Start Bootstrap - mixed with Django !
+{% endblock %}
+
+<!-- Main Content -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview">
+                {% for post in post_list %}
+                    {% if post.is_published %}
+                        <a href="{% url "Post" category_slug=post.category.slug post_slug=post.slug %}">
+                            <h2 class="post-title">
+                                {{ post.title }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {% autoescape off %}
+                                    {{ post.subtitle|default:"Empty post"|truncatechars:60 }}
+                                {% endautoescape %}
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted by
+                        <a href="#">{{ post.author }} </a>
+                        on {{ post.publish_date }}</p>
+                    {% endif %}
+                {% empty %}
+                    <p>No post online.</p>
+                {% endfor %}
+
+
+                {% if is_paginated %}
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if post_list.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ post_list.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ post_list.number }} of {{ post_list.paginator.num_pages }}.
+                            </span>
+
+                            {% if post_list.has_next %}
+                                <a href="?page={{ post_list.next_page_number }}">next</a>
+                                <a href="?page={{ post_list.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% else %}
+                    <p>No post online.</p>
+                {% endif %}
+
+
+            </div>
+            <hr>
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+{% endblock %}
+

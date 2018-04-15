@@ -1,0 +1,33 @@
+{% extends "no_header.html" %}
+
+{% block title %}{{ post.title|default:"Post" }}{% endblock %}
+
+{% block header_title %}Start Bootstrap - Django{% endblock %}
+
+{% block content %}
+    <!-- Post Content -->
+      <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>{{ post.title|default:"Post" }}</h1>
+                        <span class="subheading">{{ post.subtitle|default:"Post" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <h2></h2>
+            {% autoescape off %}
+                {{ post.content|default:"Empty post" }}
+            {% endautoescape %}
+            <p>Wrote by {{ post.author.lastname|default:"Mr X" }} {{ post.author.firstname|default:"" }} at
+                {{ post.publish_date|default:"" }}, contact {{ post.author.email|default:"" }}.
+            </p>
+          </div>
+        </div>
+      </div>
+    <hr>
+{% endblock %}

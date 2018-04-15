@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title|default:"Post" }}{% endblock %}
+
+{% block header_title %}Start Bootstrap - Django{% endblock %}
+
+
+{% block background-image %}
+    {% if post.header_img %}
+        background-image: url('{{ post.header_img.url }}')
+    {% else %}
+        background-image: url('../../static/web/images/post-bg.jpg')
+    {% endif %}
+{% endblock %}
+
+{% block webpage_title %}
+    {{ post.title|default:"Post" }}
+{% endblock %}
+
+{% block webpage_subtitle %}
+    {{ post.subtitle|default:"Post" }}
+{% endblock %}
+
+{% block content %}
+    <!-- Post Content -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <h2></h2>
+            {% autoescape off %}
+                {{ post.content|default:"Empty post" }}
+            {% endautoescape %}
+            <p>Wrote by {{ post.author.lastname|default:"Mr X" }} {{ post.author.firstname|default:"" }} at
+                {{ post.publish_date|default:"" }}, contact {{ post.author.email|default:"" }}.
+            </p>
+          </div>
+        </div>
+      </div>
+    <hr>
+{% endblock %}

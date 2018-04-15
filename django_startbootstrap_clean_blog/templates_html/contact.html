@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Clean Blog - Django Start Bootstrap Theme{% endblock %}
+
+{% block header_title %}Start Bootstrap - Django{% endblock %}
+
+{% block background-image %}
+    background-image: url('../static/web/images/contact-bg.jpg')
+{% endblock %}
+
+{% block webpage_title %}
+    Contact
+{% endblock %}
+
+{% block webpage_subtitle %}
+    A Blog Theme by Start Bootstrap - mixed with Django !
+{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    {% if envoi %}Votre message a bien été envoyé !{% endif %}
+
+    <div class="container">
+      <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit">Send</button>
+            </div>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+{% endblock %}

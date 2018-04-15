@@ -1,0 +1,9 @@
+.DS_Store
+*.xml
+*.png
+*.jpeg
+*.jpg
+*.sqlite3
+__pycache__
+*.pyc
+*ckeditor*
