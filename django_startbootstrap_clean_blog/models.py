@@ -48,6 +48,7 @@ class Post(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=200, null=True)
+    header_img = models.ImageField(upload_to="category_img", blank=True, default="")
 
     slug = models.SlugField(unique=True, max_length=25, editable=False)
 

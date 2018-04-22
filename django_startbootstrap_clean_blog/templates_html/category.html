@@ -5,7 +5,11 @@
 {% block header_title %}Start Bootstrap - Django{% endblock %}
 
 {% block background-image %}
-    background-image: url('../static/web/images/post-bg.jpg')
+    {% if cat.header_img %}
+        background-image: url('{{ cat.header_img.url }}')
+    {% else %}
+        background-image: url('../../static/web/images/post-bg.jpg')
+    {% endif %}
 {% endblock %}
 
 {% block webpage_title %}
@@ -32,7 +36,13 @@
                         </h3>
                     </a>
                     <p class="post-meta">Posted by
-                    <a href="#">{{ post.author }} </a>
+                    <a href="{% url "About" %}">
+                        {% if post.author.identify_choose %}
+                            {{ post.author }}
+                        {% else %}
+                            {{ post.author.pseudo }}
+                        {% endif %}
+                    </a>
                     on {{ post.publish_date }}</p>
                 {% empty %}
                     <p>No post online in this category</p>
