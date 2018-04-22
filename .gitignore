@@ -2,7 +2,7 @@
 *.xml
 *.png
 *.jpeg
-*.jpg
+media/*
 *.sqlite3
 __pycache__
 *.pyc
