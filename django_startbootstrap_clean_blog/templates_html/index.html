@@ -35,7 +35,13 @@
                             </h3>
                         </a>
                         <p class="post-meta">Posted by
-                        <a href="#">{{ post.author }} </a>
+                        <a href="{% url "About" %}">
+                            {% if post.author.identify_choose %}
+                                {{ post.author }}
+                            {% else %}
+                                {{ post.author.pseudo }}
+                            {% endif %}
+                        </a>
                         on {{ post.publish_date }}</p>
                     {% endif %}
                 {% empty %}

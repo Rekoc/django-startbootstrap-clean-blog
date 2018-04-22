@@ -6,6 +6,9 @@ import uuid
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.template.defaultfilters import slugify
 
+GENDER_CHOICES = [(0, "Keep secret"), (1, "Women"), (2, "Men"), (3, "Transgender")]
+IDENTITY_CHOOSE_CHOICES = [(True, "Print Firstname"), (False, "Print pseudo")]
+
 
 class Post(models.Model):
     title = models.CharField(max_length=200, default="")
@@ -21,14 +24,15 @@ class Post(models.Model):
                                            verbose_name="Last modification date")
 
     has_header = models.BooleanField(default=False)
-    header_img = models.ImageField(upload_to="post_img", blank=True)
+    if has_header:
+        header_img = models.ImageField(upload_to="post_img", blank=True)
 
     category = models.ForeignKey('Category', on_delete='Others')
 
     content = RichTextUploadingField()
 
     slug = models.SlugField(unique=True, max_length=25, editable=False)
-    is_published = models.BooleanField(default=True)
+    is_published = models.BooleanField(default=True, help_text="Stick and the article will be publish online")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -62,13 +66,12 @@ class Author(models.Model):
     pseudo = models.CharField(max_length=30, null=True)
 
     # True = name will be print // False = pseudo will be print
-    identify_choose = models.NullBooleanField(default=True)
+    identify_choose = models.NullBooleanField(default=True, choices=IDENTITY_CHOOSE_CHOICES)
     email = models.EmailField()
     picture = models.ImageField(upload_to="picture_admin/", blank=True,
                                 default="picture_admin/default_icon.png")
 
-    # True = Women // False = Men
-    gender = models.NullBooleanField()
+    gender = models.IntegerField(choices=GENDER_CHOICES, default=0)
 
     slug = models.SlugField(unique=True, max_length=60, editable=False)
 

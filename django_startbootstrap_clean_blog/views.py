@@ -7,6 +7,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from .form import ContactForm
 from django import forms
+from .models import GENDER_CHOICES
 
 # https://pypi.python.org/pypi/Unidecode
 # from unidecode import unidecode
